@@ -4,6 +4,16 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>CreateDamoDataService</servlet-name>
+  	<display-name>CreateDamoDataService</display-name>
+  	<description>TEST</description>
+  	<servlet-class>com.whh.servlet.CreateDamoDataService</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CreateDamoDataService</servlet-name>
+  	<url-pattern>/CreateDamoDataService</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>

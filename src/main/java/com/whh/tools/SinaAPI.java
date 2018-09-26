@@ -24,7 +24,8 @@ public class SinaAPI {
     public static float xdfz=5f;
 
     public static void main(String arg[]) throws IOException, InterruptedException {
-        String[] pool = {"sz002607", "sz000807","sh603369","sh603328"};
+//        String[] pool = {"sz002607", "sz000807","sh603369","sh603328"};
+        String[] pool = {"sz002607", "sz000807","sh603328"};
         SinaAPI api = new SinaAPI();
         api.calculateAndShow(pool);
     }
