@@ -21,11 +21,11 @@ public class SinaAPI {
     public static Ansi.Color r = Ansi.Color.RED;
     public static Ansi.Color g = Ansi.Color.GREEN;
     public static float szfz=9;
-    public static float xdfz=5f;
+    public static float xdfz=7f;
 
     public static void main(String arg[]) throws IOException, InterruptedException {
-//        String[] pool = {"sz002607", "sz000807","sh603369","sh603328"};
-        String[] pool = {"sz002607", "sz000807","sh603328"};
+        String[] pool = {"sh603369","sz002607", "sz000807","sh603328"};
+//        String[] pool = {"sz002607", "sz000807","sh603328"};
         SinaAPI api = new SinaAPI();
         api.calculateAndShow(pool);
     }
@@ -63,7 +63,7 @@ public class SinaAPI {
                 Float ztspj = Float.parseFloat(splitInfo[2]);
                 Float dqj = Float.parseFloat(splitInfo[3]);
                 final  float abs = Math.abs((dqj - ztspj) / ztspj * 100);
-                if (abs > 4) {
+                if (abs > 5) {
                     if (dqj < ztspj) {
                         System.out.print(ansi().eraseScreen().fg(g).reset().a("|").fg(g).a(dqj).reset().a("|").fg(g).a((dqj - ztspj) / ztspj * 100).a("%"));
                         if(abs>xdfz){
@@ -80,7 +80,7 @@ public class SinaAPI {
                     System.out.print(ansi().eraseScreen().reset().a("|").a(dqj).a("|").a((dqj - ztspj) / ztspj * 100).a("%"));
                 }
             }
-            Thread.sleep(2000);
+            Thread.sleep(3000);
             System.out.println();
         }
 
