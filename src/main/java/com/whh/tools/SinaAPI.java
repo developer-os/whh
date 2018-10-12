@@ -20,12 +20,14 @@ public class SinaAPI {
     public static String APIURL = "http://hq.sinajs.cn/list=";
     public static Ansi.Color r = Ansi.Color.RED;
     public static Ansi.Color g = Ansi.Color.GREEN;
-    public static float szfz=9;
-    public static float xdfz=7f;
+    public static float szfz=8;
+    public static float xdfz=10f;
 
     public static void main(String arg[]) throws IOException, InterruptedException {
-        String[] pool = {"sh603369","sz002607", "sz000807","sh603328"};
-//        String[] pool = {"sz002607", "sz000807","sh603328"};
+        String[] pool = {"sz002068","sz002050", "sz000807","sz002607"};
+//        String[] pool = {"sz002068","sz002050","sz002607"};
+        String[] pricePool = { "7.6","13.45","7.92","11.224"};
+        String[] priceNamePool = { "hm","sh","yl","xy"};
         SinaAPI api = new SinaAPI();
         api.calculateAndShow(pool);
     }
@@ -67,12 +69,12 @@ public class SinaAPI {
                     if (dqj < ztspj) {
                         System.out.print(ansi().eraseScreen().fg(g).reset().a("|").fg(g).a(dqj).reset().a("|").fg(g).a((dqj - ztspj) / ztspj * 100).a("%"));
                         if(abs>xdfz){
-                            JOptionPane.showMessageDialog(null,abs);
+                            JOptionPane.showMessageDialog(null,name+"_"+abs);
                         }
                     } else {
                         System.out.print(ansi().eraseScreen().fg(r).reset().a("|").fg(r).a(dqj).reset().a("|").fg(r).a((dqj - ztspj) / ztspj * 100).a("%"));
                         if(abs>szfz){
-                            showMessageDialog(null,abs);
+                            showMessageDialog(null,name+"_"+abs);
                         }
                     }
 
