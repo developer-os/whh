@@ -22,12 +22,10 @@ public class SinaAPI {
     public static Ansi.Color g = Ansi.Color.GREEN;
     public static float szfz=8;
     public static float xdfz=10f;
+    public static int sleepTime=2000;
 
     public static void main(String arg[]) throws IOException, InterruptedException {
-        String[] pool = {"sz002068","sz002050", "sz000807","sz002607"};
-//        String[] pool = {"sz002068","sz002050","sz002607"};
-        String[] pricePool = { "7.6","13.45","7.92","11.224"};
-        String[] priceNamePool = { "hm","sh","yl","xy"};
+        String[] pool = {"sh601118","sz000807"};
         SinaAPI api = new SinaAPI();
         api.calculateAndShow(pool);
     }
@@ -82,7 +80,7 @@ public class SinaAPI {
                     System.out.print(ansi().eraseScreen().reset().a("|").a(dqj).a("|").a((dqj - ztspj) / ztspj * 100).a("%"));
                 }
             }
-            Thread.sleep(3000);
+            Thread.sleep(sleepTime);
             System.out.println();
         }
 
