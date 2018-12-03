@@ -28,7 +28,10 @@ public class SinaAPI {
     public static int sleepTime = 2000;
     public static int balanceNum = 2;
     public static Ansi.Color currentColor = white;
-    public static String[] pool = {"sh601118", "sz000807","sz002607"};
+    public static String[] pool = {"sh601118", "sz000807","sh601233","sz002356"};
+//    public static String[] pool = {"sh601118", "sz000807","sh601233","sz002384","sz002607"};
+    String warningCode="601118";
+    Float warningPrice=5.10f;
 
     public static void main(String arg[]) throws IOException, InterruptedException {
         SinaAPI api = new SinaAPI();
@@ -49,6 +52,7 @@ public class SinaAPI {
                 Float oldPercent = (currentPrice-yesterdayEndPrice)/yesterdayEndPrice * 100;
                 Float newPercent = (currentPrice-todayStartPrice)/todayStartPrice * 100;
                 System.out.print(ansi().eraseScreen().fg(currentColor).a((i+1)+"【").a(currentPrice).a("★").a(oldPercent).a("★").a(newPercent).a("】■■"));
+                warning(warningCode,StringUtils.substring(pool[i],2),warningPrice,currentPrice);
             }
             Thread.sleep(sleepTime);
             System.out.println();
@@ -78,5 +82,12 @@ public class SinaAPI {
         return "";
     }
 
+    public void warning(String fixCode,String variableCod,Float fixPrice,Float variablePrice){
+        if(fixCode.equals(variableCod)){
+            if(variablePrice>=fixPrice){
+                showMessageDialog(null,"！！！！警告！！！！");
+            }
+        }
 
+    }
 }
