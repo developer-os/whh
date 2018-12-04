@@ -8,10 +8,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.fusesource.jansi.Ansi;
 
-import javax.swing.*;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 import static org.fusesource.jansi.Ansi.ansi;
@@ -22,16 +20,20 @@ public class SinaAPI {
     public static Ansi.Color green = Ansi.Color.GREEN;
     public static Ansi.Color blue = Ansi.Color.BLUE;
     public static Ansi.Color white = Ansi.Color.WHITE;
-
-    public static float szfz = 8;
-    public static float xdfz = 10f;
     public static int sleepTime = 2000;
     public static int balanceNum = 2;
     public static Ansi.Color currentColor = white;
     public static String[] pool = {"sh601118", "sz000807","sh601233","sz002356"};
-//    public static String[] pool = {"sh601118", "sz000807","sh601233","sz002384","sz002607"};
-    String warningCode="601118";
-    Float warningPrice=5.10f;
+    //    public static String[] pool = {"sh601118", "sz000807","sh601233","sz002384","sz002607"};
+    static Map warningMap=new HashMap<String,Float>();
+
+    public SinaAPI() {
+        config();
+    }
+    public void config(){
+        warningMap.put("sh601118",5.1f);
+        warningMap.put("sz002356",9.27f);
+    }
 
     public static void main(String arg[]) throws IOException, InterruptedException {
         SinaAPI api = new SinaAPI();
@@ -51,8 +53,8 @@ public class SinaAPI {
                 Float currentPrice = Float.parseFloat(splitInfo[3]);
                 Float oldPercent = (currentPrice-yesterdayEndPrice)/yesterdayEndPrice * 100;
                 Float newPercent = (currentPrice-todayStartPrice)/todayStartPrice * 100;
-                System.out.print(ansi().eraseScreen().fg(currentColor).a((i+1)+"【").a(currentPrice).a("★").a(oldPercent).a("★").a(newPercent).a("】■■"));
-                warning(warningCode,StringUtils.substring(pool[i],2),warningPrice,currentPrice);
+                System.out.print(ansi().eraseScreen().fg(currentColor).a((i+1)+"【").a(currentPrice).a("#").a(oldPercent).a("#").a(newPercent).a("】"));
+                cycleWarning(warningMap,pool[i],currentPrice);
             }
             Thread.sleep(sleepTime);
             System.out.println();
@@ -82,7 +84,7 @@ public class SinaAPI {
         return "";
     }
 
-    public void warning(String fixCode,String variableCod,Float fixPrice,Float variablePrice){
+    public void warning(String fixCode,Float fixPrice,String variableCod,Float variablePrice){
         if(fixCode.equals(variableCod)){
             if(variablePrice>=fixPrice){
                 showMessageDialog(null,"！！！！警告！！！！");
@@ -90,4 +92,11 @@ public class SinaAPI {
         }
 
     }
+    public void cycleWarning(Map<String,Float> config,String variableCod,Float variablePrice){
+        Set set = config.entrySet();
+        for(Map.Entry<String,Float> entry :config.entrySet()){
+            warning(entry.getKey(),entry.getValue(),variableCod,variablePrice);
+        }
+    }
+
 }
