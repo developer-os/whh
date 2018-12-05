@@ -33,10 +33,12 @@ public class SinaAPI {
     }
     public void config(){
         warningMapHigh.put("sh601118",5.15f);
+        warningMapLow.put("sh601118",4.9f);
+
         warningMapHigh.put("sz002356",9.27f);
         warningMapHigh.put("sz002422",26.1f);
 
-        warningMapLow.put("sh601118",4.9f);
+
     }
 
     public static void main(String arg[]) throws IOException, InterruptedException {
