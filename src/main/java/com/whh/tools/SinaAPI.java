@@ -23,16 +23,20 @@ public class SinaAPI {
     public static int sleepTime = 2000;
     public static int balanceNum = 2;
     public static Ansi.Color currentColor = white;
-    public static String[] pool = {"sh601118", "sz000807","sh601233","sz002356"};
+    public static String[] pool = {"sh601118", "sz000807","sz002356","sz002422"};
     //    public static String[] pool = {"sh601118", "sz000807","sh601233","sz002384","sz002607"};
-    static Map warningMap=new HashMap<String,Float>();
+    static Map warningMapHigh=new HashMap<String,Float>();
+    static Map warningMapLow=new HashMap<String,Float>();
 
     public SinaAPI() {
         config();
     }
     public void config(){
-        warningMap.put("sh601118",5.1f);
-        warningMap.put("sz002356",9.27f);
+        warningMapHigh.put("sh601118",5.15f);
+        warningMapHigh.put("sz002356",9.27f);
+        warningMapHigh.put("sz002422",26.1f);
+
+        warningMapLow.put("sh601118",4.9f);
     }
 
     public static void main(String arg[]) throws IOException, InterruptedException {
@@ -54,7 +58,8 @@ public class SinaAPI {
                 Float oldPercent = (currentPrice-yesterdayEndPrice)/yesterdayEndPrice * 100;
                 Float newPercent = (currentPrice-todayStartPrice)/todayStartPrice * 100;
                 System.out.print(ansi().eraseScreen().fg(currentColor).a((i+1)+"【").a(currentPrice).a("#").a(oldPercent).a("#").a(newPercent).a("】"));
-                cycleWarning(warningMap,pool[i],currentPrice);
+                cycleWarning(warningMapHigh,pool[i],currentPrice,true);
+                cycleWarning(warningMapLow,pool[i],currentPrice,false);
             }
             Thread.sleep(sleepTime);
             System.out.println();
@@ -84,18 +89,25 @@ public class SinaAPI {
         return "";
     }
 
-    public void warning(String fixCode,Float fixPrice,String variableCod,Float variablePrice){
+    public void warning(String fixCode,Float fixPrice,String variableCod,Float variablePrice,boolean highOrLow){
+
         if(fixCode.equals(variableCod)){
-            if(variablePrice>=fixPrice){
-                showMessageDialog(null,"！！！！警告！！！！");
+            if(highOrLow){//high
+                if(variablePrice>=fixPrice){
+                    showMessageDialog(null,"！！！！G警告！！！！");
+                }
+            }else {
+                if(variablePrice<=fixPrice){
+                    showMessageDialog(null,"！！！！D警告！！！！");
+                }
             }
         }
 
     }
-    public void cycleWarning(Map<String,Float> config,String variableCod,Float variablePrice){
+    public void cycleWarning(Map<String,Float> config,String variableCod,Float variablePrice,boolean highOrLow){
         Set set = config.entrySet();
         for(Map.Entry<String,Float> entry :config.entrySet()){
-            warning(entry.getKey(),entry.getValue(),variableCod,variablePrice);
+            warning(entry.getKey(),entry.getValue(),variableCod,variablePrice, highOrLow);
         }
     }
 
