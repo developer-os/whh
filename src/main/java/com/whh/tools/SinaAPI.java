@@ -22,8 +22,8 @@ public class SinaAPI {
     public static Ansi.Color white = Ansi.Color.WHITE;
     public static int sleepTime = 2000;
     public static int balanceNum = 2;
-    public static Ansi.Color currentColor = white;
-    public static String[] pool = {"sh601118", "sz000807","sz002356","sz002422"};
+    public static Ansi.Color currentColor = blue;
+    public static String[] pool = {"sh601118", "sz000807","sz002356","sz002422","sz000723"};
     //    public static String[] pool = {"sh601118", "sz000807","sh601233","sz002384","sz002607"};
     static Map warningMapHigh=new HashMap<String,Float>();
     static Map warningMapLow=new HashMap<String,Float>();
@@ -32,12 +32,17 @@ public class SinaAPI {
         config();
     }
     public void config(){
-        warningMapHigh.put("sh601118",5.15f);
+        warningMapHigh.put("sh601118",5.1f);
         warningMapLow.put("sh601118",4.9f);
 
         warningMapHigh.put("sz002356",9.27f);
+        warningMapLow.put("sz002356",9f);
+
         warningMapHigh.put("sz002422",26.1f);
 
+        warningMapLow.put("sz000807",4.1f);
+
+        warningMapLow.put("sz000723",3.55f);
 
     }
 
