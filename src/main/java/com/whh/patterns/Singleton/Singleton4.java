@@ -1,4 +1,4 @@
-package com.whh.patterns;
+package com.whh.patterns.Singleton;
 
 /**
  * 
