@@ -6,6 +6,7 @@ package com.whh.patterns.Singleton;
  * 性能较差
  */
 public class Singleton2 {
+	private Singleton2 (){}
 	private static Singleton2 INSTANCE1;
 	static synchronized Singleton2 getInstance() {
 		if(INSTANCE1==null) {

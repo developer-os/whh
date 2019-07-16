@@ -6,6 +6,7 @@ package com.whh.patterns.Singleton;
  *  多线程环境下有问题
  */
 public class Singleton {
+	private Singleton (){}
 	private static Singleton INSTANCE1;
 	static Singleton getInstance() {
 		if(INSTANCE1==null) {

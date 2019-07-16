@@ -6,6 +6,7 @@ package com.whh.patterns.Singleton;
  * 
  */
 public class Singleton4 {
+	private Singleton4 (){}
 	private static Singleton4 INSTANCE1 = null;
 
 	static Singleton4 getInstance() {

@@ -6,6 +6,7 @@ package com.whh.patterns.Singleton;
  * 双重验证
  */
 public class Singleton3 {
+	private Singleton3 (){}
 	private static  Singleton3 INSTANCE1;
 	static Singleton3 getInstance() {
 		if(INSTANCE1==null) {
