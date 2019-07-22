@@ -18,12 +18,13 @@ public class SinaAPI {
     public static String APIURL = "http://hq.sinajs.cn/list=";
     public static Ansi.Color read = Ansi.Color.RED;
     public static Ansi.Color green = Ansi.Color.GREEN;
+    public static Ansi.Color defaul = Ansi.Color.DEFAULT;
     public static Ansi.Color blue = Ansi.Color.BLUE;
     public static Ansi.Color white = Ansi.Color.WHITE;
-    public static int sleepTime = 2000;
+    public static int sleepTime = 20000;
     public static int balanceNum = 2;
-    public static Ansi.Color currentColor = blue;
-    public static String[] pool = {"sh601118", "sz000807","sz002356","sz002422","sz000723"};
+    public static Ansi.Color currentColor = defaul;
+    public static String[] pool = {"sz000560", "sz002545","sh603225","sh600201"};
     //    public static String[] pool = {"sh601118", "sz000807","sh601233","sz002384","sz002607"};
     static Map warningMapHigh=new HashMap<String,Float>();
     static Map warningMapLow=new HashMap<String,Float>();
@@ -32,17 +33,19 @@ public class SinaAPI {
         config();
     }
     public void config(){
-        warningMapHigh.put("sh601118",5.1f);
-        warningMapLow.put("sh601118",4.9f);
-
-        warningMapHigh.put("sz002356",9.27f);
-        warningMapLow.put("sz002356",9f);
-
-        warningMapHigh.put("sz002422",26.1f);
-
-        warningMapLow.put("sz000807",4.1f);
-
-        warningMapLow.put("sz000723",3.55f);
+//        warningMapHigh.put("sh601118",4.85f);//300
+//        warningMapLow.put("sh601118",4.65f);
+//
+//        warningMapHigh.put("sz000807",4.1f);
+//        warningMapLow.put("sz000807",4.0f);
+//
+//        warningMapHigh.put("sz002356",9.27f);
+//        warningMapLow.put("sz002356",7.5f);
+//
+//        warningMapHigh.put("sz002422",26.1f);
+//
+//        warningMapHigh.put("sh600584",10.35f);//400
+//        warningMapLow.put("sh600584",8.5f);
 
     }
 
@@ -64,7 +67,7 @@ public class SinaAPI {
                 Float currentPrice = Float.parseFloat(splitInfo[3]);
                 Float oldPercent = (currentPrice-yesterdayEndPrice)/yesterdayEndPrice * 100;
                 Float newPercent = (currentPrice-todayStartPrice)/todayStartPrice * 100;
-                System.out.print(ansi().eraseScreen().fg(currentColor).a((i+1)+"【").a(currentPrice).a("#").a(oldPercent).a("#").a(newPercent).a("】"));
+                System.out.print(ansi().eraseScreen().fg(currentColor).a((i+1)+"|").a(currentPrice).a("#").a(oldPercent).a("#").a(newPercent).a("|"));
                 cycleWarning(warningMapHigh,pool[i],currentPrice,true);
                 cycleWarning(warningMapLow,pool[i],currentPrice,false);
             }
@@ -101,11 +104,13 @@ public class SinaAPI {
         if(fixCode.equals(variableCod)){
             if(highOrLow){//high
                 if(variablePrice>=fixPrice){
-                    showMessageDialog(null,"！！！！G警告！！！！");
+//                    showMessageDialog(null,"！！！！G警告！！！！"+variableCod);
+                    System.out.println("！！！！G警告！！！！");
                 }
             }else {
                 if(variablePrice<=fixPrice){
-                    showMessageDialog(null,"！！！！D警告！！！！");
+//                    showMessageDialog(null,"！！！！D警告！！！！"+variableCod);
+                    System.out.println("！！！！G警告！！！！");
                 }
             }
         }
